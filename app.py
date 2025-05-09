@@ -391,7 +391,13 @@ if uploaded_file:
                     # Show the sections found
                     with st.expander("Document Sections"):
                         for i, row in df.iterrows():
-                            st.markdown(f"**{row['title']}**")
+                            st.markdown(f"**{row.get('title', 'No Title')}**")
+
+                            if 'title' in row:
+                                st.markdown(f"**{row['title']}**")
+                            else:
+                                st.markdown("**(No title)**")
+
                             st.text(row['content'][:200] + "..." if len(row['content']) > 200 else row['content'])
             else:
                 st.error("❌ Failed to parse file.")
